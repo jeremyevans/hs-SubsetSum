@@ -1,0 +1,47 @@
+hs-SubsetSum
+------------
+
+hs-SubsetSum is a haskell library for determining the solution to the subset
+sum problem [1]. The subset sum problem is NP-complete, and this is not
+a very optimized version, though it is faster than a naive approach.  This
+uses the meet-in-the-middle algorithm, splitting the set into two sets,
+calculating all sums of the first set, and for each entry in the second
+set, seeing if the difference between its sum and the final sum are in
+included in one of the sums in the first set.  It returns an empty
+array if it can't find a match (or the sum is 0), and an array that is
+a subset of the given set that sums to the given number.
+
+There are two separate methods provided by this library.  One is
+subsetSumMap, which is a pure version that uses Data.Map.  The other is
+subsetSumHash, which is an inpure version that uses Data.HashTable and
+is about twice as fast.  Both versions haven been tested on ghc 7.0.4.
+
+(1) http://en.wikipedia.org/wiki/Subset_sum_problem
+
+Example Usage
+-------------
+
+import SubsetSum
+
+subsetSumMap 5 [1, 2, 3]
+  # returns [2, 3]
+
+subsetSumHash 4 [1, 2, 3]
+  # returns IO [1, 3]
+
+subsetSumMap 7 [1, 2, 3]
+  # returns []
+
+subsetSumMap 0 [1, 2, 3]
+  # returns []
+
+Source
+------
+
+The most current source code can be accessed via github
+(http://github.com/jeremyevans/hs-SubsetSum).
+
+Author
+------
+
+Jeremy Evans <code@jeremyevans.net>
